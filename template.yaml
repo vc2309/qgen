@@ -1,0 +1,36 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Timeout: 100
+    MemorySize: 5000
+
+Resources:
+  QuestionGenerationFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      Architectures:
+        - x86_64
+      Events:
+        Inference:
+          Type: Api
+          Properties:
+            Path: /generate_question
+            Method: post
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: ./app
+      DockerTag: python3.9-v1
+
+Outputs:
+  InferenceApi:
+    Description: "API Gateway endpoint URL for Prod stage for QuestionGenerationFunction"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/generate_question/"
+  QuestionGenerationFunction:
+    Description: "QuestionGenerationFunction ARN"
+    Value: !GetAtt QuestionGenerationFunction.Arn
+  QuestionGenerationFunctionIamRole:
+    Description: "Implicit IAM Role created for QuestionGenerationFunction"
+    Value: !GetAtt QuestionGenerationFunctionRole.Arn
