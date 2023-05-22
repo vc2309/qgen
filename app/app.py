@@ -48,7 +48,11 @@ def lambda_handler(event, context):
             "statusCode" : 200,
             "body" : json.dumps(response_body),
             "headers" : {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Methods': '*',
+                'Accept' : '*/*'
             }
         }
     except Exception as e:
@@ -59,6 +63,10 @@ def lambda_handler(event, context):
             "status" : 500,
             "body" : json.dumps(error_body),
             "headers" : {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Methods': '*',
+                'Accept' : '*/*'
             }   
         }
