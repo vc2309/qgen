@@ -8,7 +8,7 @@ Globals:
       AllowHeaders: "'*'"
       AllowOrigin: "'*'"
   Function:
-    Timeout: 100
+    Timeout: 300
     MemorySize: 5000
 
 Resources:
